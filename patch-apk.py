@@ -114,7 +114,10 @@ def main():
         Log.abort(f"Gadget configuration file not found: {args.gadget_config}")
 
     if args.script_source and not args.gadget_config:
-        Log.abort("A script source was specified (--script-source) but no gadget configuration was set (--gadget-config).")
+        Log.warn("A script source was specified (--script-source) but no gadget configuration was set (--gadget-config). A default config will be used which simply launches the given script.")
+
+        if not args.gadget_config:
+            args.gadget_config = "gadget_script.json"
 
     if args.script_source and not os.path.isfile(args.script_source):
         Log.abort(f"Script source file not found: {args.script_source}")
